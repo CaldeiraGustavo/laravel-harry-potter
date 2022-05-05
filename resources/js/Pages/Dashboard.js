@@ -3,6 +3,7 @@ import Authenticated from "@/Layouts/Authenticated";
 import { Head } from "@inertiajs/inertia-react";
 
 export default function Dashboard(props) {
+    console.log(props.characters);
     return (
         <Authenticated
             auth={props.auth}
@@ -17,12 +18,7 @@ export default function Dashboard(props) {
             <div>
                 <div className="py-12">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="p-6 bg-white border-b border-gray-200">
-                                You're logged in!
-                            </div>
-                        </div>
-                        <div className="max-w-sm w-full lg:max-w-full lg:flex">
+                        <div className="max-w-sm w-full lg:max-w-full lg:flex ">
                             <div
                                 className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
                                 style={{
@@ -30,18 +26,8 @@ export default function Dashboard(props) {
                                 }}
                                 title="Woman holding a mug"
                             ></div>
-                            <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                            <div className="bg-white border-b border-gray-200 lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                                 <div className="mb-8">
-                                    <p className="text-sm text-gray-600 flex items-center">
-                                        <svg
-                                            className="fill-current text-gray-500 w-3 h-3 mr-2"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20"
-                                        >
-                                            <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
-                                        </svg>
-                                        Members only
-                                    </p>
                                     <div className="text-gray-900 font-bold text-xl mb-2">
                                         Can coffee make you a better developer?
                                     </div>
@@ -53,11 +39,6 @@ export default function Dashboard(props) {
                                     </p>
                                 </div>
                                 <div className="flex items-center">
-                                    <img
-                                        className="w-10 h-10 rounded-full mr-4"
-                                        src="/img/jonathan.jpg"
-                                        alt="Avatar of Jonathan Reinink"
-                                    />
                                     <div className="text-sm">
                                         <p className="text-gray-900 leading-none">
                                             Jonathan Reinink

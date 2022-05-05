@@ -9,7 +9,8 @@ class HarryPotterAdapter implements HarryPotterAdapterInterface
 {
     public function characters()
     {
-        return Http::get(env('BASE_API_URL'));
+        $response = Http::get(env('BASE_API_URL'));
+        return $response->json();
     }
 
     public function students()
