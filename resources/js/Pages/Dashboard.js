@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head } from "@inertiajs/inertia-react";
+import CardDashboard from "@/Components/CardDashboard";
+import Pagination from "@/Components/Pagination/Pagination";
 
 export default function Dashboard(props) {
-    console.log(props.characters);
+    const [allCharacters, setAllCharacters] = useState(props.characters);
+    const [currentCharacters, setCurrentCharacters] = useState([]);
+    const [currentPage, setCurrentPage] = useState(null);
+
+    const onPageChanged = (data) => {
+        const { currentPage, pageLimit } = data;
+
+        const offset = (currentPage - 1) * pageLimit;
+        setCurrentPage(currentPage);
+        setCurrentCharacters(
+            allCharacters.slice(offset, offset + pageLimit)
+        );
+    };
+
     return (
         <Authenticated
             auth={props.auth}
@@ -16,39 +31,25 @@ export default function Dashboard(props) {
         >
             <Head title="Dashboard" />
             <div>
-                <div className="py-12">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="max-w-sm w-full lg:max-w-full lg:flex ">
-                            <div
-                                className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-                                style={{
-                                    backgroundImage: `url("https://hp-api.herokuapp.com/images/harry.jpg")`,
-                                }}
-                                title="Woman holding a mug"
-                            ></div>
-                            <div className="bg-white border-b border-gray-200 lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                                <div className="mb-8">
-                                    <div className="text-gray-900 font-bold text-xl mb-2">
-                                        Can coffee make you a better developer?
-                                    </div>
-                                    <p className="text-gray-700 text-base">
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Voluptatibus quia,
-                                        nulla! Maiores et perferendis eaque,
-                                        exercitationem praesentium nihil.
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
-                                    <div className="text-sm">
-                                        <p className="text-gray-900 leading-none">
-                                            Jonathan Reinink
-                                        </p>
-                                        <p className="text-gray-600">Aug 18</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="py-12 grid grid-flow-row-dense grid-cols-3">
+                    {currentCharacters.map((char, index) => (
+                        <CardDashboard
+                            key={index}
+                            image={char.image}
+                            name={char.name}
+                            species={char.species}
+                            gender={char.gender}
+                            actor={char.actor}
+                        />
+                    ))}
+                </div>
+                <div className="d-flex flex-row py-4 align-items-center">
+                    <Pagination
+                        totalRecords={props.characters.length}
+                        pageLimit={15}
+                        pageNeighbours={1}
+                        onPageChanged={onPageChanged}
+                    />
                 </div>
             </div>
         </Authenticated>
